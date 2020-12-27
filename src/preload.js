@@ -15,6 +15,17 @@ limitations under the License.
 */
 
 const { ipcRenderer } = require('electron');
+const { desktopCapturer } = require('electron');
 
 // expose ipcRenderer to the renderer process
 window.ipcRenderer = ipcRenderer;
+
+// emulate JitsiMeetElectron.obtainDesktopStreams to fix Jitsi screen sharing
+window.JitsiMeetElectron = {
+    obtainDesktopStreams(callback, errorCallback, options = {}) {
+        desktopCapturer
+            .getSources(options)
+            .then((sources) => callback(sources))
+            .catch((error) => errorCallback(error));
+    },
+};
