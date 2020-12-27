@@ -920,6 +920,7 @@ app.on('ready', async () => {
         webPreferences: {
             preload: preloadScript,
             nodeIntegration: false,
+            nodeIntegrationInSubFrames: true,
             //sandbox: true, // We enable sandboxing from app.enableSandbox() above
             enableRemoteModule: false,
             // We don't use this: it's useful for the preload script to
